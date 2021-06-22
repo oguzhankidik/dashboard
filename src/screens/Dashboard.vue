@@ -1,10 +1,10 @@
 <template>
   <div class="main">
-    <Charts v-bind:message="posts.online_guests" />
-    <Infos v-bind:message2="this.posts"/>
+    <Charts v-if="chartloaded" v-bind:message="posts.online_guests" />
+    <Infos v-bind:message2="this.posts" :maxvalue="maxVal" />
     <div class="bottominfos">
-      <PieChart v-bind:message3="posts.device_vendors" />
-      <PieChart v-bind:message3="posts.login_types" />
+      <PieChart v-if="chartloaded" v-bind:message3="posts.device_vendors" />
+      <PieChart v-if="chartloaded" v-bind:message3="posts.login_types" />
     </div>
   </div>
 </template>
@@ -27,28 +27,24 @@ export default {
     msg: String
   },
   created() {
-    this.getPosts();
+    this.getPosts()
   },
   data() {
     return {
+      chartloaded:false,
+      maxVal: '',
       posts: [],
       errors: []
     };
   },
   methods: {
     async getPosts() {
-
       const response=await axios
           .get("http://challenge.iperasolutions.com/dashboard");
       this.posts=response.data
-
-      axios
-          .get("http://challenge.iperasolutions.com/dashboard")
-          .then(response => (this.posts = response.data))
-          .catch(error => {
-            this.errors.push(error);
-          });
-    }
+      this.maxVal = Math.max.apply(Math, this.posts.online_guests);
+      this.chartloaded=true;
+    },
   }
 }
 </script>

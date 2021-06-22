@@ -9,8 +9,8 @@
     <div class="card" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Max Online</h5>
+        {{maxvalue}}
 
-        {{myFunction()}}
       </div>
     </div>
     <div class="card" style="width: 18rem;">
@@ -34,23 +34,11 @@ export default {
   name: 'Infos',
   props: {
     message2: {
+    },
+    maxvalue:{
 
     }
   },
-
-  data: function () {
-
-    return {
-      item: this.message2.online_guests,
-      maxVal: '',
-    };
-  },
-  methods:{
-    myFunction: function () {
-      this.maxVal = Math.max.apply(Math, this.item);
-      return this.maxVal;
-    }
-  }
 
 }
 </script>

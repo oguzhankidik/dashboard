@@ -12,6 +12,7 @@ export default {
 
     }
   },
+
   data() {
     return {
       chartOptions: {
@@ -22,10 +23,10 @@ export default {
         xAxis:{
           categories:['00:00','01:00','02:00']
         },
-        title:'',
+        title:null,
         series: [
           {
-            data:this.message
+            data :this.message
           }
         ]
       }
